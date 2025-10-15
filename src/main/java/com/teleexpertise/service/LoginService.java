@@ -17,7 +17,11 @@ public class LoginService {
         if (BCrypt.checkpw(password, storedHash)) {
             return user; // mot de passe correct
         }
-        return user; // mot de passe incorrect
+        return null;
     }
 
 }
+
+
+
+

@@ -58,9 +58,11 @@ public class PatientDAO {
 
     public List<Patient> findAll() {
         try (Session session = Dbconnection.getSessionFactory().openSession()) {
-            return session.createQuery("from Patient order by id ASC", Patient.class)
-                    .stream()
-                    .toList();
+            List<Patient> patients = session.createQuery(
+                    "SELECT DISTINCT p FROM Patient p LEFT JOIN FETCH p.consultations ORDER BY p.id ASC",
+                    Patient.class
+            ).list();
+            return patients;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
